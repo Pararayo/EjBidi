@@ -24,72 +24,77 @@ public class Concesionario {
         10000f,
         Float.MAX_VALUE
     };
-    public Concesionario(int numeroModelos){
-        modelos=new Modelo[numeroModelos];
+
+    public Concesionario(int numeroModelos) {
+        modelos = new Modelo[numeroModelos];
     }
-    public Concesionario(){
-        modelos=new Modelo[15];
+
+    public Concesionario() {
+        modelos = new Modelo[15];
     }
 
     public void cargarModelos() {
-    for(int numeroModelo=0; numeroModelo<modelos.length;numeroModelo++){
-        String nombreModelo=AlfaNumerico.pedirAlfaNumérico("Introduzca nombre del modelo "+(numeroModelo+1));
-        int tipoModelo=pedirTipo();
-        modelos[numeroModelo]=new Modelo(nombreModelo,tipoModelo);
-    }
+        for (int numeroModelo = 0; numeroModelo < modelos.length; numeroModelo++) {
+            String nombreModelo = AlfaNumerico.pedirAlfaNumérico("Introduzca nombre del modelo " + (numeroModelo + 1));
+            int tipoModelo = pedirTipo();
+            modelos[numeroModelo] = new Modelo(nombreModelo, tipoModelo);
+        }
     }
 
-    public void cargarVentas() {     
-           float ventas []=new float [6];
-           for(int venta=0;venta<ventas.length;venta++){
-               for(int numModelo=0;numModelo<modelos.length;numModelo++){
-               float ventaMes=Numero.pedirNumeroRealPositivo("Introduzca las ventas del mes "+(venta+1)
-                       +" del modelo "+modelos[numModelo].getDenominacion(), 0);
-               modelos[numModelo].getVentas()[venta]=ventaMes;
-               }
-           }
-           
-        
+    public void cargarVentas() {
+
+        for (int posVenta = 0; posVenta < 6; posVenta++) {
+            for (int numModelo = 0; numModelo < modelos.length; numModelo++) {
+                float ventaMes = Numero.pedirNumeroRealPositivo("Introduzca las ventas del mes " + (posVenta + 1)
+                        + " del modelo " + modelos[numModelo].getDenominacion(), 0);
+                modelos[numModelo].actualizarVentas(posVenta, ventaMes);
+            }
+        }
+
     }
 
     public void emitirInforme() {
-       Fecha fechaHoy=new Fecha();
+        Fecha fechaHoy = new Fecha();
         System.out.println("INFORME VENTAS");
-        System.out.println("Fecha: "+fechaHoy.fechaCompletaMesLetra());
+        System.out.println("Fecha: " + fechaHoy.fechaCompletaMesLetra());
         System.out.println("Modelo coche \t Importe ventas 1 trimestre \t Importe ventas 2º trimestre \t Beneficio");
         
+
     }
-    private int buscarTipo(String nombreTipo){
-        int pos=0;
-        boolean existeTipo=false;
-        while(!existeTipo && pos<tipos.length){
-            if(tipos[pos].equalsIgnoreCase(nombreTipo)){
-                existeTipo=true;
-            }else{
+
+    private int buscarTipo(String nombreTipo) {
+        int pos = 0;
+        boolean existeTipo = false;
+        while (!existeTipo && pos < tipos.length) {
+            if (tipos[pos].equalsIgnoreCase(nombreTipo)) {
+                existeTipo = true;
+            } else {
                 pos++;
             }
         }
-        if(!existeTipo){
-            pos=-1;
+        if (!existeTipo) {
+            pos = -1;
         }
         return pos;
     }
-    private void buscarLimite(){
-        
+
+    private void buscarLimite() {
+
     }
-    private void calcularBeneficio(){
-        
+
+    private void calcularBeneficio() {
+
     }
 
     private int pedirTipo() {
-        
-        String nombreTipo=AlfaNumerico.pedirAlfaNumérico("Introduzca el tipo");
-        int tipo=buscarTipo(nombreTipo);
-        while(tipo==-1){
-            nombreTipo=AlfaNumerico.pedirAlfaNumérico("Introduzca el tipo");
-            tipo=buscarTipo(nombreTipo);
+
+        String nombreTipo = AlfaNumerico.pedirAlfaNumérico("Introduzca el tipo");
+        int tipo = buscarTipo(nombreTipo);
+        while (tipo == -1) {
+            nombreTipo = AlfaNumerico.pedirAlfaNumérico("Introduzca el tipo");
+            tipo = buscarTipo(nombreTipo);
         }
-     return tipo;   
+        return tipo;
     }
-    
+
 }

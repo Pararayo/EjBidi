@@ -29,6 +29,14 @@ public class Modelo {
         return tipo;
     }
 
-    
-    
+    public void actualizarVentas(int pos, float ventaMes){
+        ventas[pos]=ventaMes;
+    }
+    public float calcularVentasTotales(){
+        float ventasTotales=0;
+        for(int posVenta=0;posVenta<ventas.length;posVenta++){
+            ventasTotales+=ventas[posVenta];
+        }
+        return ventasTotales;
+    }
 }
